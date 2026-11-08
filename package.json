@@ -1,38 +1,24 @@
 {
   "name": "portfolio",
-  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "ajv": "^6.10.2",
-    "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.3.1",
-    "caniuse-lite": "^1.0.30001012",
-    "classnames": "^2.2.6",
-    "express": "^4.17.1",
-    "firebase": "^7.21.1",
-    "jquery": "^3.5.1",
-    "popper.js": "^1.16.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-ga": "^2.7.0",
-    "react-helmet": "^5.2.1",
-    "react-icons": "^3.8.0",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^3.4.3",
-    "react-transition-group": "^4.3.0",
-    "typescript": "^3.7.2"
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=22.12"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@portfolio/web",
+    "dev:mobile": "turbo run dev --filter=@portfolio/mobile",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "typecheck": "turbo run typecheck",
+    "format": "turbo run format && prettier --write \"*.{json,md,yaml,yml}\"",
+    "format:check": "turbo run format:check && prettier --check \"*.{json,md,yaml,yml}\"",
+    "seed": "pnpm --filter @portfolio/sanity seed"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "turbo": "^2.11.10"
+  }
 }

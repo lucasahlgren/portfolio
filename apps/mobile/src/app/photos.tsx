@@ -1,9 +1,11 @@
-import { photoCategoriesOf, photosQuery, type Photo } from "@portfolio/content";
+import { photoCategoriesOf, photosQuery, shuffle, type Photo } from "@portfolio/content";
 import { useState } from "react";
-import { Pressable, ScrollView, useWindowDimensions, View } from "react-native";
+import { Pressable, useWindowDimensions, View } from "react-native";
 
 import { SanityImage } from "@/components/sanity-image";
-import { Screen, SectionTitle } from "@/components/screen";
+import { FilterPills } from "@/components/filter-pills";
+import { PageHeader } from "@/components/page-header";
+import { Screen } from "@/components/screen";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -13,7 +15,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Text } from "@/components/ui/text";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useSanityQuery } from "@/hooks/use-sanity-query";
 
 const GAP = 8;
@@ -23,12 +24,13 @@ export default function PhotosScreen() {
   const { width } = useWindowDimensions();
   const [selected, setSelected] = useState<Photo | null>(null);
   const [category, setCategory] = useState("all");
+  const [seed] = useState(Math.random);
   const { data, loading, error, refreshing, refresh } = useSanityQuery<Photo[]>(photosQuery);
   const columnWidth = (Math.min(width, 672) - 48 - GAP) / 2;
 
   const columns: Photo[][] = [[], []];
   const heights = [0, 0];
-  const allPhotos = data ?? [];
+  const allPhotos = shuffle(data ?? [], seed);
   const categories = photoCategoriesOf(allPhotos);
   const photos =
     category === "all" ? allPhotos : allPhotos.filter((p) => p.category?.slug === category);
@@ -41,35 +43,19 @@ export default function PhotosScreen() {
 
   return (
     <Screen loading={loading} error={error} refreshing={refreshing} onRefresh={refresh}>
-      <SectionTitle eyebrow="Photography" title="Moments, framed" />
+      <PageHeader eyebrow="Photography" title="Moments, *framed*">
+        Photography is how I express my creative side, from floorball and tennis to wildlife and
+        city skylines.
+      </PageHeader>
       {categories.length > 1 && (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="-mx-6 mb-6"
-          contentContainerClassName="px-6"
-        >
-          <ToggleGroup
-            type="single"
-            variant="outline"
-            value={category}
-            onValueChange={(value) => value && setCategory(value)}
-          >
-            <ToggleGroupItem value="all" isFirst aria-label="All">
-              <Text>All</Text>
-            </ToggleGroupItem>
-            {categories.map((c, i) => (
-              <ToggleGroupItem
-                key={c.slug}
-                value={c.slug}
-                isLast={i === categories.length - 1}
-                aria-label={c.title}
-              >
-                <Text>{c.title}</Text>
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-        </ScrollView>
+        <FilterPills
+          value={category}
+          onChange={setCategory}
+          options={[
+            { value: "all", label: "All", count: allPhotos.length },
+            ...categories.map((c) => ({ value: c.slug, label: c.title, count: c.count })),
+          ]}
+        />
       )}
       <View className="flex-row" style={{ gap: GAP }}>
         {columns.map((column, c) => (
@@ -108,12 +94,14 @@ export default function PhotosScreen() {
                 <View className="flex-row flex-wrap gap-1.5">
                   {selected.category && (
                     <Badge variant="outline" className="rounded-full">
-                      <Text>{selected.category.title}</Text>
+                      <Text className="font-label-semi">{selected.category.title}</Text>
                     </Badge>
                   )}
                   {selected.takenAt && (
                     <Badge variant="secondary" className="rounded-full">
-                      <Text>{dateFormat.format(new Date(selected.takenAt))}</Text>
+                      <Text className="font-label-semi">
+                        {dateFormat.format(new Date(selected.takenAt))}
+                      </Text>
                     </Badge>
                   )}
                 </View>

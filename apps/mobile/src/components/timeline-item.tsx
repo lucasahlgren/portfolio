@@ -1,8 +1,8 @@
 import type { SanityImage as SanityImageType } from "@portfolio/content";
 import type { ReactNode } from "react";
+import { Image } from "expo-image";
 import { View } from "react-native";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Text } from "@/components/ui/text";
@@ -20,7 +20,7 @@ type Props = {
 };
 
 export function TimelineItem({ period, title, subtitle, logo, current, first, children }: Props) {
-  const logoUri = imageUrl(logo, 120);
+  const logoUri = imageUrl(logo, 144, "png");
   const initials = subtitle
     .split(/\s+/)
     .map((w) => w[0])
@@ -32,12 +32,18 @@ export function TimelineItem({ period, title, subtitle, logo, current, first, ch
     <View>
       {!first && <Separator />}
       <View className="flex-row gap-4 py-6">
-        <Avatar alt={subtitle} className="size-10 rounded-lg bg-white">
-          {logoUri && <AvatarImage source={{ uri: logoUri }} className="rounded-lg" />}
-          <AvatarFallback className="rounded-lg">
-            <Text className="text-xs font-medium">{initials}</Text>
-          </AvatarFallback>
-        </Avatar>
+        <View className="size-12 items-center justify-center overflow-hidden rounded-xl border border-border bg-white">
+          {logoUri ? (
+            <Image
+              source={{ uri: logoUri }}
+              accessibilityLabel={logo?.alt || subtitle}
+              contentFit="contain"
+              style={{ width: 40, height: 40 }}
+            />
+          ) : (
+            <Text className="text-xs font-medium text-neutral-900">{initials}</Text>
+          )}
+        </View>
         <View className="flex-1 gap-1">
           <Badge
             variant="outline"
@@ -46,7 +52,7 @@ export function TimelineItem({ period, title, subtitle, logo, current, first, ch
               current && "border-success/40 bg-success/10",
             )}
           >
-            <Text className={cn("font-medium tabular-nums", current && "text-success")}>
+            <Text className={cn("font-label-semi tabular-nums", current && "text-success")}>
               {period}
             </Text>
           </Badge>

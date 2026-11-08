@@ -5,7 +5,8 @@ import { Badges } from "@/components/badges";
 import { LinkButton } from "@/components/link-button";
 import { PortableText } from "@/components/portable-text";
 import { SanityImage } from "@/components/sanity-image";
-import { Eyebrow, Screen, SectionTitle } from "@/components/screen";
+import { PageHeader } from "@/components/page-header";
+import { Eyebrow, Screen } from "@/components/screen";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Separator } from "@/components/ui/separator";
 import { useSanityQuery } from "@/hooks/use-sanity-query";
@@ -34,7 +35,10 @@ export default function AboutScreen() {
 
   return (
     <Screen loading={loading} error={error} refreshing={refreshing} onRefresh={refresh}>
-      <SectionTitle eyebrow="About" title={`Hello, I’m ${settings?.name?.split(" ")[0] ?? ""}`} />
+      <PageHeader
+        eyebrow="About"
+        title={`Hello, I’m *${settings?.name?.split(" ")[0] ?? "Lucas"}*`}
+      />
 
       {settings?.portrait && (
         <View className="overflow-hidden rounded-3xl">
@@ -43,7 +47,8 @@ export default function AboutScreen() {
               image={settings.portrait}
               width={contentWidth}
               contentPosition="top"
-              className="h-full w-full bg-muted"
+              fill
+              className="bg-muted"
             />
           </AspectRatio>
         </View>

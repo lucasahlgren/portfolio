@@ -11,7 +11,8 @@ import { useState } from "react";
 import { View } from "react-native";
 
 import { Badges } from "@/components/badges";
-import { Screen, SectionTitle } from "@/components/screen";
+import { PageHeader } from "@/components/page-header";
+import { Screen } from "@/components/screen";
 import { TimelineItem } from "@/components/timeline-item";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,7 +28,9 @@ export default function ExperienceScreen() {
 
   return (
     <Screen loading={loading} error={error} refreshing={refreshing} onRefresh={refresh}>
-      <SectionTitle eyebrow="Experience" title="Work & education" />
+      <PageHeader eyebrow="Experience" title="Work & *education*">
+        Where I’ve worked, what I’ve built there and where I learned to do it.
+      </PageHeader>
       <Tabs value={tab} onValueChange={setTab} className="gap-4">
         <TabsList className="w-full">
           <TabsTrigger value="work" className="flex-1">

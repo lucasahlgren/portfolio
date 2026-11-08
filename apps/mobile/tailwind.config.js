@@ -1,4 +1,5 @@
 const { hairlineWidth } = require("nativewind/theme");
+const plugin = require("tailwindcss/plugin");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -71,5 +72,18 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  plugins: [require("tailwindcss-animate")],
+  corePlugins: { fontWeight: false },
+  plugins: [
+    require("tailwindcss-animate"),
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        ".font-normal": { fontFamily: "Geist_400Regular" },
+        ".font-medium": { fontFamily: "Geist_500Medium" },
+        ".font-semibold": { fontFamily: "Geist_600SemiBold" },
+        ".font-bold": { fontFamily: "Geist_700Bold" },
+        ".font-label": { fontFamily: "ArchivoExpanded-Medium" },
+        ".font-label-semi": { fontFamily: "ArchivoSemiExpanded-Medium" },
+      });
+    }),
+  ],
 };

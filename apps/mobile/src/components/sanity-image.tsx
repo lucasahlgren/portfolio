@@ -14,6 +14,7 @@ type Props = {
   style?: StyleProp<ImageStyle>;
   contentFit?: "cover" | "contain";
   contentPosition?: "center" | "top";
+  fill?: boolean;
 };
 
 export function SanityImage({
@@ -23,6 +24,7 @@ export function SanityImage({
   style,
   contentFit = "cover",
   contentPosition = "center",
+  fill = false,
 }: Props) {
   const uri = imageUrl(image, PixelRatio.getPixelSizeForLayoutSize(width));
   const aspectRatio = image?.dimensions?.aspectRatio;
@@ -36,7 +38,7 @@ export function SanityImage({
       contentPosition={contentPosition}
       transition={250}
       className={className}
-      style={[{ aspectRatio }, style]}
+      style={[fill ? { width: "100%", height: "100%" } : { aspectRatio }, style]}
     />
   );
 }

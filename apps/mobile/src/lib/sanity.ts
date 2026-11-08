@@ -20,9 +20,14 @@ export const client = createContentClient({
 
 const builder = isSanityConfigured ? createImageBuilder({ projectId, dataset }) : null;
 
-export function imageUrl(image: SanityImage | null | undefined, width: number): string | null {
+export function imageUrl(
+  image: SanityImage | null | undefined,
+  width: number,
+  format?: "png",
+): string | null {
   if (!builder || !hasAsset(image)) return null;
-  return builder(image).width(Math.round(width)).fit("max").auto("format").url();
+  const b = builder(image).width(Math.round(width)).fit("max");
+  return (format ? b.format(format) : b.auto("format")).url();
 }
 
 export const siteUrl = process.env.EXPO_PUBLIC_SITE_URL ?? "https://lucasahlgren.se";

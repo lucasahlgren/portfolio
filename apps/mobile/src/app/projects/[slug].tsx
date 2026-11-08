@@ -9,7 +9,6 @@ import { PortableText } from "@/components/portable-text";
 import { SanityImage } from "@/components/sanity-image";
 import { Eyebrow, Screen } from "@/components/screen";
 import { Alert, AlertTitle } from "@/components/ui/alert";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Icon } from "@/components/ui/icon";
@@ -64,15 +63,11 @@ export default function ProjectScreen() {
           )}
         </View>
 
-        <View className="overflow-hidden rounded-2xl">
-          <AspectRatio ratio={4 / 3}>
-            <SanityImage
-              image={project.coverImage}
-              width={contentWidth}
-              className="h-full w-full bg-muted"
-            />
-          </AspectRatio>
-        </View>
+        <SanityImage
+          image={project.coverImage}
+          width={contentWidth}
+          className="w-full rounded-2xl bg-muted"
+        />
 
         <PortableText value={project.body} />
 

@@ -24,9 +24,12 @@ import {
 import { navItems } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
+const mobileNavItems = [{ href: "/", label: "Home" }, ...navItems];
+
 function useIsActive() {
   const pathname = usePathname();
-  return (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  return (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export function DesktopNav() {
@@ -80,7 +83,7 @@ export function MobileNav() {
           <SheetDescription>Site navigation</SheetDescription>
         </SheetHeader>
         <nav aria-label="Main" className="container-page flex flex-col">
-          {navItems.map((item, i) => (
+          {mobileNavItems.map((item, i) => (
             <Fragment key={item.href}>
               {i > 0 && <Separator />}
               <Link

@@ -62,6 +62,7 @@
   "scripts": {
     "dev": "expo start",
     "start": "expo start",
+    "build": "expo export --platform all --output-dir dist",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",

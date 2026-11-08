@@ -1,0 +1,38 @@
+{
+  "name": "@portfolio/sanity",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sanity Studio schemas, desk structure and seed script. The Studio is embedded in apps/web at /studio.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "seed": "node --env-file-if-exists=../../apps/web/.env.local seed/seed.ts",
+    "cors:add": "sanity cors add"
+  },
+  "dependencies": {
+    "@portfolio/content": "workspace:*",
+    "@sanity/vision": "^6.22.0",
+    "sanity": "^6.22.0",
+    "@sanity/icons": "^5.3.0"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19",
+    "styled-components": "^6"
+  },
+  "devDependencies": {
+    "@sanity/client": "^8.15.0",
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "prettier": "^3.9.10",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "styled-components": "^6.6.0",
+    "typescript": "^5"
+  }
+}

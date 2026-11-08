@@ -1,0 +1,29 @@
+{
+  "name": "@portfolio/content",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "GROQ queries, types and Sanity client helpers shared by the web and mobile apps.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./queries": "./src/queries.ts",
+    "./types": "./src/types.ts",
+    "./image": "./src/image.ts",
+    "./client": "./src/client.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@sanity/client": "^8.15.0",
+    "@sanity/image-url": "^2.1.1",
+    "groq": "^6.22.0",
+    "@portabletext/types": "^4.0.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "typescript": "^5"
+  }
+}

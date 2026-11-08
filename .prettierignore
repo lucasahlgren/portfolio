@@ -1,0 +1,14 @@
+node_modules
+pnpm-lock.yaml
+.next
+.turbo
+.expo
+dist
+build
+ios
+android
+next-env.d.ts
+*.generated.ts
+sanity.types.ts
+schema.json
+seed/assets

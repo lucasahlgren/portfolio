@@ -7,7 +7,6 @@ import { useState, useSyncExternalStore, type KeyboardEvent } from "react";
 
 import { SanityImage } from "@/components/sanity-image";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -133,24 +132,26 @@ export function PhotoGallery({ photos: sourcePhotos }: { photos: Photo[] }) {
                 )}
                 {photos.length > 1 && (
                   <>
-                    <Button
-                      variant="secondary"
-                      size="icon"
+                    <button
+                      type="button"
                       onClick={() => step(-1)}
                       aria-label="Previous photo"
-                      className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full opacity-80 hover:opacity-100"
+                      className="group/prev absolute inset-y-0 left-0 flex w-1/3 cursor-pointer items-center justify-start pl-3 focus-visible:outline-none"
                     >
-                      <ChevronLeft />
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      size="icon"
+                      <span className="grid size-10 place-items-center rounded-full bg-secondary/80 text-secondary-foreground shadow-sm backdrop-blur transition group-hover/prev:bg-secondary group-focus-visible/prev:ring-2 group-focus-visible/prev:ring-ring">
+                        <ChevronLeft className="size-5" />
+                      </span>
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => step(1)}
                       aria-label="Next photo"
-                      className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full opacity-80 hover:opacity-100"
+                      className="group/next absolute inset-y-0 right-0 flex w-1/3 cursor-pointer items-center justify-end pr-3 focus-visible:outline-none"
                     >
-                      <ChevronRight />
-                    </Button>
+                      <span className="grid size-10 place-items-center rounded-full bg-secondary/80 text-secondary-foreground shadow-sm backdrop-blur transition group-hover/next:bg-secondary group-focus-visible/next:ring-2 group-focus-visible/next:ring-ring">
+                        <ChevronRight className="size-5" />
+                      </span>
+                    </button>
                   </>
                 )}
               </div>

@@ -51,6 +51,10 @@ Run from the repo root (Turborepo fans out to every package), or inside a single
 
 The web app's Prettier config adds `prettier-plugin-tailwindcss` for class sorting.
 
+## Continuous integration
+
+`.github/workflows/build-validation.yml` (**Build validation**) runs on every pull request and on pushes to `main`: `pnpm format:check`, `pnpm lint`, `pnpm typecheck` and `pnpm build` (Next.js production build + Expo JS bundles for iOS and Android). It uses the public Sanity dataset; override the project ID or dataset with the repository variables `NEXT_PUBLIC_SANITY_PROJECT_ID` / `NEXT_PUBLIC_SANITY_DATASET`. To require it before merging, add **Format, lint & build** as a required status check in the branch protection rules for `main`.
+
 ## Deploying the website (Vercel)
 
 1. Import the repo in Vercel and set **Root Directory** to `apps/web` (Vercel detects pnpm and the workspace).

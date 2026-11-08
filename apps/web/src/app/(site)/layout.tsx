@@ -44,14 +44,14 @@ export const viewport: Viewport = {
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${fontVariables} antialiased`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+      className={`${fontVariables} antialiased`}
+    >
       <body className="min-h-dvh">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <TooltipProvider delayDuration={200}>
             <div className="flex min-h-dvh flex-col">
               <a

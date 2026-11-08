@@ -141,7 +141,7 @@
   }
   .label {
     @apply font-label;
-    font-stretch: 112%;
+    font-stretch: 112.5%;
   }
   .hero-fade {
     --hero-fade: linear-gradient(

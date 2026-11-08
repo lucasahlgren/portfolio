@@ -81,7 +81,7 @@ export default async function AboutPage() {
                   <li key={skill}>
                     <Badge
                       variant="outline"
-                      className="h-8 rounded-full px-3.5 text-sm font-normal transition-colors hover:border-brand hover:text-brand"
+                      className="label h-8 rounded-full px-3.5 text-sm font-medium transition-colors hover:border-brand hover:text-brand"
                     >
                       {skill}
                     </Badge>

@@ -34,7 +34,7 @@ export default async function HomePage() {
             {settings?.availableForWork && (
               <Badge
                 variant="outline"
-                className="mb-8 h-7 animate-fade-up gap-1.5 rounded-full px-3"
+                className="label mb-8 h-7 animate-fade-up gap-1.5 rounded-full px-3 font-medium"
               >
                 <Sparkles className="text-success" />
                 Open to new opportunities

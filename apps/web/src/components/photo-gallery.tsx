@@ -1,26 +1,39 @@
 "use client";
 
-import { photoCategoriesOf } from "@portfolio/content";
+import { photoCategoriesOf, shuffle } from "@portfolio/content";
 import type { Photo } from "@portfolio/content/types";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, type KeyboardEvent } from "react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { useState, useSyncExternalStore, type KeyboardEvent } from "react";
 
 import { SanityImage } from "@/components/sanity-image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { cn } from "@/lib/utils";
 
 const dateFormat = new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" });
 
-export function PhotoGallery({ photos: allPhotos }: { photos: Photo[] }) {
+const visitSeed = Math.random();
+const subscribe = () => () => {};
+
+export function PhotoGallery({ photos: sourcePhotos }: { photos: Photo[] }) {
+  const seed = useSyncExternalStore(
+    subscribe,
+    () => visitSeed,
+    () => null,
+  );
+  const allPhotos = seed === null ? sourcePhotos : shuffle(sourcePhotos, seed);
   const [category, setCategory] = useState("all");
   const [openAt, setOpenAt] = useState<number | null>(null);
+  const [loadedId, setLoadedId] = useState<string | null>(null);
 
   const categories = photoCategoriesOf(allPhotos);
   const photos =
     category === "all" ? allPhotos : allPhotos.filter((p) => p.category?.slug === category);
   const photo = openAt !== null ? photos[openAt] : null;
+  const ratio = photo?.image.dimensions?.aspectRatio ?? 1.5;
 
   const step = (direction: 1 | -1) =>
     setOpenAt((i) => (i === null ? i : (i + direction + photos.length) % photos.length));
@@ -80,7 +93,7 @@ export function PhotoGallery({ photos: allPhotos }: { photos: Photo[] }) {
       <Dialog open={photo !== null} onOpenChange={(open) => !open && setOpenAt(null)}>
         <DialogContent
           onKeyDown={onKeyDown}
-          className="flex w-[min(92vw,80rem)] max-w-none flex-col gap-4 bg-background p-4 sm:max-w-none sm:p-6"
+          className="flex w-fit max-w-[92vw] flex-col gap-4 bg-background p-4 sm:max-w-[92vw] sm:p-6"
         >
           {photo && (
             <>
@@ -89,16 +102,35 @@ export function PhotoGallery({ photos: allPhotos }: { photos: Photo[] }) {
                 Photo {openAt! + 1} of {photos.length}. Use the arrow keys to browse.
               </DialogDescription>
 
-              <div className="relative h-[70dvh] w-full">
+              <div
+                className="relative mx-auto overflow-hidden rounded-lg"
+                style={{
+                  aspectRatio: ratio,
+                  width: `min(calc(92vw - 3rem), calc(75dvh * ${ratio}))`,
+                }}
+              >
                 <SanityImage
                   key={photo._id}
                   image={photo.image}
                   alt={photo.image.alt || photo.title}
                   fill
                   priority
+                  blur={false}
+                  onLoad={() => setLoadedId(photo._id)}
                   sizes="92vw"
-                  className="object-contain"
+                  className={cn(
+                    "object-contain transition-opacity duration-300",
+                    loadedId === photo._id ? "opacity-100" : "opacity-0",
+                  )}
                 />
+                {loadedId !== photo._id && (
+                  <Skeleton
+                    className="absolute inset-0 flex items-center justify-center rounded-lg bg-foreground/10"
+                    aria-hidden="true"
+                  >
+                    <Loader2 className="size-6 animate-spin text-muted-foreground" />
+                  </Skeleton>
+                )}
                 {photos.length > 1 && (
                   <>
                     <Button
@@ -123,11 +155,11 @@ export function PhotoGallery({ photos: allPhotos }: { photos: Photo[] }) {
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center justify-between gap-2 pr-8">
+              <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
                 <p className="font-medium">{photo.title}</p>
                 <div className="flex items-center gap-1.5">
                   {photo.category && (
-                    <Badge variant="outline" className="rounded-full">
+                    <Badge variant="outline" className="label rounded-full font-medium">
                       {photo.category.title}
                     </Badge>
                   )}

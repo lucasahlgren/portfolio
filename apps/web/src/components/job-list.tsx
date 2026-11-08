@@ -68,13 +68,17 @@ export function JobList({ jobs, compact = false }: { jobs: Job[]; compact?: bool
               <ItemActions className="hidden sm:flex">
                 <PeriodBadge period={formatJobPeriod(job)} current={current} />
               </ItemActions>
-              <ItemFooter className="flex-wrap justify-start gap-1.5 pl-14 sm:hidden">
+              <ItemFooter className="flex-wrap justify-start gap-1.5 pl-16 sm:hidden">
                 <PeriodBadge period={formatJobPeriod(job)} current={current} />
               </ItemFooter>
               {!compact && job.tools && job.tools.length > 0 && (
-                <ItemFooter className="flex-wrap justify-start gap-1.5 sm:pl-14">
+                <ItemFooter className="flex-wrap justify-start gap-1.5 sm:pl-16">
                   {job.tools.map((tool) => (
-                    <Badge key={tool} variant="secondary" className="rounded-full font-normal">
+                    <Badge
+                      key={tool}
+                      variant="secondary"
+                      className="label rounded-full font-medium"
+                    >
                       {tool}
                     </Badge>
                   ))}

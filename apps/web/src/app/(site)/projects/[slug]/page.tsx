@@ -7,7 +7,6 @@ import { Fragment, Suspense, type CSSProperties } from "react";
 
 import { PortableText } from "@/components/portable-text";
 import { SanityImage } from "@/components/sanity-image";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
@@ -106,7 +105,7 @@ async function Project({ params }: Pick<PageProps<"/projects/[slug]">, "params">
         <p className="eyebrow mb-3">Tools</p>
         <div className="flex flex-wrap gap-1.5">
           {project.tools.map((tool) => (
-            <Badge key={tool} variant="secondary" className="rounded-full font-normal">
+            <Badge key={tool} variant="secondary" className="label rounded-full font-medium">
               {tool}
             </Badge>
           ))}
@@ -180,16 +179,13 @@ async function Project({ params }: Pick<PageProps<"/projects/[slug]">, "params">
           <VideoEmbed url={project.videoUrl} title={project.title} />
         ) : (
           <div className="overflow-hidden rounded-2xl bg-muted">
-            <AspectRatio ratio={16 / 9}>
-              <SanityImage
-                image={project.coverImage}
-                alt={project.title}
-                fill
-                priority
-                sizes="(min-width: 1280px) 1216px, 100vw"
-                className="object-cover"
-              />
-            </AspectRatio>
+            <SanityImage
+              image={project.coverImage}
+              alt={project.title}
+              priority
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="h-auto w-full"
+            />
           </div>
         )}
       </div>

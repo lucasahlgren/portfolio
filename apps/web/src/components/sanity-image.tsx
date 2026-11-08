@@ -11,9 +11,20 @@ type Props = {
   className?: string;
   priority?: boolean;
   fill?: boolean;
+  blur?: boolean;
+  onLoad?: () => void;
 };
 
-export function SanityImage({ image, alt, sizes, className, priority, fill }: Props) {
+export function SanityImage({
+  image,
+  alt,
+  sizes,
+  className,
+  priority,
+  fill,
+  blur = true,
+  onLoad,
+}: Props) {
   const src = imageUrl(image);
   if (!image || !src) {
     return (
@@ -28,8 +39,9 @@ export function SanityImage({ image, alt, sizes, className, priority, fill }: Pr
     sizes,
     className,
     priority,
-    placeholder: image.lqip ? ("blur" as const) : ("empty" as const),
-    blurDataURL: image.lqip ?? undefined,
+    placeholder: blur && image.lqip ? ("blur" as const) : ("empty" as const),
+    blurDataURL: blur ? (image.lqip ?? undefined) : undefined,
+    onLoad,
   };
 
   return fill || !dims ? (

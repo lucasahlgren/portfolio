@@ -32,6 +32,9 @@ export function JobList({ jobs, compact = false }: { jobs: Job[]; compact?: bool
                 <LogoAvatar logo={job.logo} name={job.company} />
               </ItemMedia>
               <ItemContent className="gap-1">
+                <div className="mb-1 sm:hidden">
+                  <PeriodBadge period={formatJobPeriod(job)} current={current} />
+                </div>
                 <ItemTitle className="text-xl font-medium tracking-tight">{job.role}</ItemTitle>
                 <ItemDescription className="line-clamp-none text-base">
                   {job.url ? (
@@ -68,9 +71,6 @@ export function JobList({ jobs, compact = false }: { jobs: Job[]; compact?: bool
               <ItemActions className="hidden sm:flex">
                 <PeriodBadge period={formatJobPeriod(job)} current={current} />
               </ItemActions>
-              <ItemFooter className="flex-wrap justify-start gap-1.5 pl-16 sm:hidden">
-                <PeriodBadge period={formatJobPeriod(job)} current={current} />
-              </ItemFooter>
               {!compact && job.tools && job.tools.length > 0 && (
                 <ItemFooter className="flex-wrap justify-start gap-1.5 sm:pl-16">
                   {job.tools.map((tool) => (

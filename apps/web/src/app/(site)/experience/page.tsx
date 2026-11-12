@@ -60,6 +60,12 @@ export default async function ExperiencePage() {
                     <LogoAvatar logo={item.logo} name={item.school} />
                   </ItemMedia>
                   <ItemContent className="gap-1">
+                    <Badge
+                      variant="outline"
+                      className="label mb-1 rounded-full font-medium tabular-nums sm:hidden"
+                    >
+                      {formatYearRange(item.startYear, item.endYear)}
+                    </Badge>
                     <ItemTitle className="text-xl font-medium tracking-tight">
                       {item.school}
                     </ItemTitle>
@@ -75,7 +81,7 @@ export default async function ExperiencePage() {
                       </p>
                     )}
                   </ItemContent>
-                  <ItemActions>
+                  <ItemActions className="hidden sm:flex">
                     <Badge
                       variant="outline"
                       className="label rounded-full font-medium tabular-nums"

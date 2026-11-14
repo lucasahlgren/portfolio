@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import { EmptyState } from "@/components/empty-state";
 import { JobList } from "@/components/job-list";
 import { LogoAvatar } from "@/components/logo-avatar";
+import { ReviewableSection } from "@/components/review/reviewable-section";
 import { PageHeader, SectionHeading } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -29,7 +30,7 @@ export default async function ExperiencePage() {
   const [jobs, education] = await Promise.all([getJobs(), getEducation()]);
 
   return (
-    <>
+    <ReviewableSection section="experience-page">
       <PageHeader
         eyebrow="Experience"
         title={
@@ -99,6 +100,6 @@ export default async function ExperiencePage() {
           <EmptyState type="education" />
         )}
       </section>
-    </>
+    </ReviewableSection>
   );
 }

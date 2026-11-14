@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Logo } from "@/components/logo";
+import { ReviewButton, ReviewMode } from "@/components/review/reviewable-section";
 import { DesktopNav, MobileNav } from "@/components/site-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -19,6 +20,8 @@ export function SiteHeader() {
         <DesktopNav />
 
         <div className="flex items-center gap-1">
+          <ReviewMode />
+          <ReviewButton section="site-header" compact />
           <ThemeToggle />
           <MobileNav />
         </div>

@@ -6,6 +6,8 @@ import {
   projectQuery,
   projectSlugsQuery,
   projectsQuery,
+  reviewCommentsQuery,
+  reviewConfigQuery,
   settingsQuery,
   type Education,
   type HomeData,
@@ -13,6 +15,9 @@ import {
   type Photo,
   type Project,
   type ProjectCard,
+  type ReviewComment,
+  type ReviewConfig,
+  type ReviewSectionKey,
   type Settings,
 } from "@portfolio/content";
 
@@ -44,3 +49,16 @@ export const getEducation = async () =>
 
 export const getPhotos = async () =>
   (await sanityFetch<Photo[]>({ query: photosQuery, tags: ["photo", "photoCategory"] })) ?? [];
+
+export const getReviewConfig = async (): Promise<ReviewConfig> =>
+  (await sanityFetch<ReviewConfig>({
+    query: reviewConfigQuery,
+    tags: ["settings", "reviewSection", "reviewComment"],
+  })) ?? { enabled: false, intro: null, sections: [] };
+
+export const getReviewComments = async (section: ReviewSectionKey) =>
+  (await sanityFetch<ReviewComment[]>({
+    query: reviewCommentsQuery,
+    params: { section },
+    tags: ["reviewComment"],
+  })) ?? [];

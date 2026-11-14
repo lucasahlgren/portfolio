@@ -12,6 +12,7 @@ export const settings = defineType({
     { name: "home", title: "Home page" },
     { name: "about", title: "About" },
     { name: "contact", title: "Contact" },
+    { name: "review", title: "Code review" },
     { name: "seo", title: "SEO" },
   ],
   fields: [
@@ -118,6 +119,28 @@ export const settings = defineType({
             }),
           ],
           preview: { select: { title: "platform", subtitle: "url" } },
+        }),
+      ],
+    }),
+    defineField({
+      name: "codeReview",
+      title: "Code review",
+      type: "object",
+      group: "review",
+      fields: [
+        defineField({
+          name: "enabled",
+          title: "Allow code review",
+          description:
+            "Turns the whole feature on or off. Choose which sections are open under Code review → Sections.",
+          type: "boolean",
+          initialValue: false,
+        }),
+        defineField({
+          name: "intro",
+          description: "Short explanation shown at the top of every review panel.",
+          type: "text",
+          rows: 3,
         }),
       ],
     }),

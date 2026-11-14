@@ -49,7 +49,21 @@ Run from the repo root (Turborepo fans out to every package), or inside a single
 | `pnpm typecheck`    | TypeScript across all packages                       |
 | `pnpm seed`         | Import the old portfolio's content into Sanity       |
 
+The web app's `dev`, `build` and `typecheck` scripts first run `review:snapshot`, which copies and highlights the source files listed in `apps/web/src/lib/review/files.json` into `src/generated/` for the "Review this code" panels. A missing file fails the build.
+
 The web app's Prettier config adds `prettier-plugin-tailwindcss` for class sorting.
+
+## Code review
+
+Visitors can open the source code behind a section of the site and comment on individual lines.
+
+- **Turn it on:** Studio → Profile & settings → Code review. Pick which sections are open under Code review → Sections.
+- **Which files each section shows:** `apps/web/src/lib/review/files.json`. The files are copied and highlighted at build time, so the site always shows the code of the deployed commit.
+- **Posting comments** needs two server-only environment variables (locally in `apps/web/.env.local`, and on Vercel):
+  - `SANITY_REVIEW_WRITE_TOKEN`: a token with the Editor role, from sanity.io/manage → API → Tokens.
+  - `REVIEW_HASH_SALT`: any long random string. It's used to hash visitor IP addresses for rate limiting.
+- **Moderation:** new comments are saved as drafts and listed under Code review → Waiting for approval. **Approve** publishes the comment, **Reject** deletes it, and **Reply** on a published comment adds your answer, marked as Author.
+- **Spam protection:** a hidden honeypot field, a minimum time before the form can be sent, at most 5 comments per visitor waiting for approval, at most 2 links per comment, and [Vercel BotID](https://vercel.com/docs/botid). BotID only checks requests on Vercel; it lets everything through locally.
 
 ## Continuous integration
 

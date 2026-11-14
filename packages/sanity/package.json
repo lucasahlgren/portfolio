@@ -16,9 +16,10 @@
   },
   "dependencies": {
     "@portfolio/content": "workspace:*",
+    "@sanity/icons": "^5.3.0",
+    "@sanity/ui": "^4.4.10",
     "@sanity/vision": "^6.22.0",
-    "sanity": "^6.22.0",
-    "@sanity/icons": "^5.3.0"
+    "sanity": "^6.22.0"
   },
   "peerDependencies": {
     "react": "^19",

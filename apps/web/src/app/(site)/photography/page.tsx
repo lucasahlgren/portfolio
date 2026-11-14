@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { EmptyState } from "@/components/empty-state";
 import { PhotoGallery } from "@/components/photo-gallery";
+import { ReviewableSection } from "@/components/review/reviewable-section";
 import { PageHeader } from "@/components/section-heading";
 import { getPhotos } from "@/lib/sanity/queries";
 
@@ -15,7 +16,7 @@ export default async function PhotographyPage() {
   const photos = await getPhotos();
 
   return (
-    <>
+    <ReviewableSection section="photography-page">
       <PageHeader
         eyebrow="Photography"
         title={
@@ -31,6 +32,6 @@ export default async function PhotographyPage() {
       <section className="container-page">
         {photos.length > 0 ? <PhotoGallery photos={photos} /> : <EmptyState type="photos" />}
       </section>
-    </>
+    </ReviewableSection>
   );
 }

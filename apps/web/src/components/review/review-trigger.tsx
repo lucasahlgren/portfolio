@@ -71,7 +71,7 @@ export function ReviewTrigger({
             variant="ghost"
             size="icon"
             aria-label="Review this code"
-            className="rounded-full"
+            className="hidden rounded-full [[data-review-mode]_&]:inline-flex"
           >
             <CodeXml className="size-4" />
           </Button>

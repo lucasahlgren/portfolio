@@ -24,7 +24,8 @@ export async function sanityFetch<T>({
 }): Promise<T | null> {
   "use cache";
   cacheTag(...tags);
-  if (process.env.NODE_ENV === "development") cacheLife({ stale: 300, revalidate: 1, expire: 300 });
+  if (process.env.NODE_ENV === "development")
+    cacheLife({ stale: 300, revalidate: 5, expire: 3600 });
   else cacheLife("hours");
 
   if (!client) return null;

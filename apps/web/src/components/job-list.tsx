@@ -27,14 +27,16 @@ export function JobList({ jobs, compact = false }: { jobs: Job[]; compact?: bool
         return (
           <Fragment key={job._id}>
             {i > 0 && <ItemSeparator />}
-            <Item className="items-start gap-4 px-0 py-6 sm:py-8">
-              <ItemMedia>
-                <LogoAvatar logo={job.logo} name={job.company} />
-              </ItemMedia>
-              <ItemContent className="gap-1">
-                <div className="mb-1 sm:hidden">
+            <Item className="flex-col items-start gap-3 px-0 py-6 sm:flex-row sm:gap-4 sm:py-8">
+              <div className="flex items-center gap-3 sm:contents">
+                <ItemMedia>
+                  <LogoAvatar logo={job.logo} name={job.company} />
+                </ItemMedia>
+                <div className="sm:hidden">
                   <PeriodBadge period={formatJobPeriod(job)} current={current} />
                 </div>
+              </div>
+              <ItemContent className="w-full gap-1 sm:w-auto">
                 <ItemTitle className="text-xl font-medium tracking-tight">{job.role}</ItemTitle>
                 <ItemDescription className="line-clamp-none text-base">
                   {job.url ? (

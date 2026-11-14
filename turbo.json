@@ -7,7 +7,9 @@
     "NEXT_PUBLIC_SANITY_API_VERSION",
     "NEXT_PUBLIC_SITE_URL",
     "SANITY_API_READ_TOKEN",
-    "SANITY_REVALIDATE_SECRET"
+    "SANITY_REVALIDATE_SECRET",
+    "SANITY_REVIEW_WRITE_TOKEN",
+    "REVIEW_HASH_SALT"
   ],
   "tasks": {
     "build": {
@@ -20,9 +22,21 @@
       "persistent": true
     },
     "lint": {},
-    "lint:fix": { "cache": false },
+    "lint:fix": {
+      "cache": false
+    },
     "typecheck": {},
-    "format": { "cache": false },
+    "format": {
+      "cache": false
+    },
     "format:check": {}
-  }
+  },
+  "globalPassThroughEnv": [
+    "VERCEL_GIT_COMMIT_SHA",
+    "VERCEL_GIT_PROVIDER",
+    "VERCEL_GIT_REPO_OWNER",
+    "VERCEL_GIT_REPO_SLUG",
+    "GITHUB_SHA",
+    "GITHUB_REPOSITORY"
+  ]
 }

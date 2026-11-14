@@ -123,3 +123,34 @@ export const experienceQuery = defineQuery(`{
   "jobs": ${jobsQuery},
   "education": ${educationQuery}
 }`);
+
+export const reviewConfigQuery = defineQuery(`{
+  "enabled": coalesce(*[_type == "settings"][0].codeReview.enabled, false),
+  "intro": *[_type == "settings"][0].codeReview.intro,
+  "sections": *[_type == "reviewSection" && enabled == true && defined(section)]{
+    section,
+    prompt,
+    "pinnedCommentId": pinnedComment._ref,
+    "commentCount": count(*[_type == "reviewComment" && section == ^.section])
+  }
+}`);
+
+export const reviewCommentsQuery = defineQuery(`
+  *[_type == "reviewComment" && section == $section] | order(_createdAt asc){
+    _id,
+    _createdAt,
+    section,
+    filePath,
+    line,
+    commitSha,
+    lineText,
+    context,
+    "author": { "name": coalesce(author.name, "Anonymous"), "url": author.url },
+    body,
+    "parentId": parent._ref,
+    "isOwner": coalesce(isOwner, false),
+    status,
+    fixedInCommit,
+    statusNote
+  }
+`);

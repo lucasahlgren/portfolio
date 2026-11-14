@@ -1,0 +1,16 @@
+{
+  "hero": ["src/app/(site)/page.tsx"],
+  "selected-projects": ["src/components/project-card.tsx", "src/components/reveal.tsx"],
+  "experience": ["src/components/job-list.tsx", "src/components/logo-avatar.tsx"],
+  "photography": ["src/components/wheel-carousel.tsx", "src/components/sanity-image.tsx"],
+  "projects-page": ["src/app/(site)/projects/page.tsx", "src/components/project-grid.tsx"],
+  "experience-page": ["src/app/(site)/experience/page.tsx", "src/components/job-list.tsx"],
+  "photography-page": ["src/app/(site)/photography/page.tsx", "src/components/photo-gallery.tsx"],
+  "about": ["src/app/(site)/about/page.tsx", "src/components/social-icon.tsx"],
+  "project-detail": ["src/app/(site)/projects/[slug]/page.tsx", "src/components/video-embed.tsx"],
+  "site-header": [
+    "src/components/site-header.tsx",
+    "src/components/site-nav.tsx",
+    "src/components/theme-toggle.tsx"
+  ]
+}

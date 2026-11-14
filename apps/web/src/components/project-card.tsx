@@ -24,6 +24,22 @@ export function ProjectCard({
 }) {
   const category = categoryLabel(project.category);
   const CategoryIcon = project.category ? categoryIcons[project.category] : null;
+  const meta =
+    category || project.year ? (
+      <>
+        {category && CategoryIcon && (
+          <Badge variant="outline" className="label gap-1.5 rounded-full font-medium">
+            <CategoryIcon className="text-[var(--project-accent)]" aria-hidden="true" />
+            {category}
+          </Badge>
+        )}
+        {project.year && (
+          <Badge variant="secondary" className="label rounded-full font-medium tabular-nums">
+            {project.year}
+          </Badge>
+        )}
+      </>
+    ) : null;
   const accent = { "--project-accent": project.accentColor ?? "var(--brand)" } as CSSProperties;
 
   return (
@@ -52,26 +68,13 @@ export function ProjectCard({
             </span>
           </AspectRatio>
         </div>
-        <CardHeader className="px-0 pt-4">
+        <CardHeader className="flex flex-col gap-1 px-0 pt-4 sm:grid">
+          {meta && <div className="mb-1 flex flex-wrap items-center gap-1.5 sm:hidden">{meta}</div>}
           <CardTitle className="text-lg tracking-tight">{project.title}</CardTitle>
           {project.subtitle && (
             <CardDescription className="text-base">{project.subtitle}</CardDescription>
           )}
-          {(category || project.year) && (
-            <CardAction className="flex items-center gap-1.5">
-              {category && CategoryIcon && (
-                <Badge variant="outline" className="label gap-1.5 rounded-full font-medium">
-                  <CategoryIcon className="text-[var(--project-accent)]" aria-hidden="true" />
-                  {category}
-                </Badge>
-              )}
-              {project.year && (
-                <Badge variant="secondary" className="label rounded-full font-medium tabular-nums">
-                  {project.year}
-                </Badge>
-              )}
-            </CardAction>
-          )}
+          {meta && <CardAction className="hidden items-center gap-1.5 sm:flex">{meta}</CardAction>}
         </CardHeader>
       </Card>
     </Link>

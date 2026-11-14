@@ -55,17 +55,19 @@ export default async function ExperiencePage() {
             {education.map((item, i) => (
               <Fragment key={item._id}>
                 {i > 0 && <ItemSeparator />}
-                <Item className="items-start gap-4 px-0 py-6 sm:py-8">
-                  <ItemMedia>
-                    <LogoAvatar logo={item.logo} name={item.school} />
-                  </ItemMedia>
-                  <ItemContent className="gap-1">
+                <Item className="flex-col items-start gap-3 px-0 py-6 sm:flex-row sm:gap-4 sm:py-8">
+                  <div className="flex items-center gap-3 sm:contents">
+                    <ItemMedia>
+                      <LogoAvatar logo={item.logo} name={item.school} />
+                    </ItemMedia>
                     <Badge
                       variant="outline"
-                      className="label mb-1 rounded-full font-medium tabular-nums sm:hidden"
+                      className="label rounded-full font-medium tabular-nums sm:hidden"
                     >
                       {formatYearRange(item.startYear, item.endYear)}
                     </Badge>
+                  </div>
+                  <ItemContent className="w-full gap-1 sm:w-auto">
                     <ItemTitle className="text-xl font-medium tracking-tight">
                       {item.school}
                     </ItemTitle>

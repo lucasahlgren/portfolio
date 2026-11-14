@@ -1,13 +1,25 @@
 "use client";
 
 import { ScanEye } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 import { Toggle } from "@/components/ui/toggle";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { parseReviewHash, subscribeToHash } from "@/lib/review/browser";
+
+const getHash = () => window.location.hash;
+const getServerHash = () => "";
 
 export function ReviewModeToggle() {
+  const hash = useSyncExternalStore(subscribeToHash, getHash, getServerHash);
+  const linked = parseReviewHash(hash) !== null;
   const [enabled, setEnabled] = useState(false);
+  const [wasLinked, setWasLinked] = useState(false);
+
+  if (linked !== wasLinked) {
+    setWasLinked(linked);
+    if (linked) setEnabled(true);
+  }
 
   useEffect(() => {
     document.documentElement.toggleAttribute("data-review-mode", enabled);

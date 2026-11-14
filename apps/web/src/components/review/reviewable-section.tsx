@@ -54,7 +54,7 @@ export async function ReviewableSection({
       data-review-label={reviewSectionTitle(section)}
     >
       {children}
-      <div className="pointer-events-none absolute inset-x-0 top-3 transition-[top] duration-200 [[data-review-mode]_&]:top-6">
+      <div className="pointer-events-none absolute inset-x-0 top-6 hidden [[data-review-mode]_&]:block">
         <div className="container-page flex justify-end">
           <div className="pointer-events-auto">
             <ReviewTrigger

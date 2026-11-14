@@ -19,6 +19,7 @@
     "@portfolio/content": "workspace:*",
     "@portfolio/sanity": "workspace:*",
     "botid": "^1.5.13",
+    "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",
     "embla-carousel-react": "^8.6.0",

@@ -170,3 +170,30 @@
     scroll-behavior: auto !important;
   }
 }
+
+[data-review-section] {
+  transition: padding-block 200ms ease;
+}
+
+[data-review-mode] [data-review-section] {
+  padding-block: 2rem;
+  outline: 1.5px dashed color-mix(in oklch, var(--brand) 70%, transparent);
+  outline-offset: -8px;
+  border-radius: var(--radius-2xl);
+}
+
+[data-review-mode] [data-review-section]::before {
+  content: attr(data-review-label);
+  position: absolute;
+  top: 8px;
+  left: 24px;
+  z-index: 20;
+  transform: translateY(-50%);
+  padding: 0 6px;
+  background: var(--background);
+  color: var(--brand);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  pointer-events: none;
+}

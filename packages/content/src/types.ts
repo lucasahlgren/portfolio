@@ -135,3 +135,56 @@ export type HomeData = {
   jobs: Job[];
   photos: Photo[];
 };
+
+export const REVIEW_SECTIONS = [
+  { title: "Home · Hero", value: "hero" },
+  { title: "Home · Selected projects", value: "selected-projects" },
+  { title: "Home · Experience", value: "experience" },
+  { title: "Home · Photography", value: "photography" },
+  { title: "About page", value: "about" },
+  { title: "Projects page", value: "projects-page" },
+  { title: "Experience page", value: "experience-page" },
+  { title: "Photography page", value: "photography-page" },
+  { title: "Project page", value: "project-detail" },
+  { title: "Site header", value: "site-header" },
+] as const;
+export type ReviewSectionKey = (typeof REVIEW_SECTIONS)[number]["value"];
+
+export const REVIEW_STATUSES = [
+  { title: "Open", value: "open" },
+  { title: "Fixed", value: "fixed" },
+  { title: "Won't fix", value: "wontfix" },
+  { title: "Good point, TIL", value: "til" },
+] as const;
+export type ReviewStatus = (typeof REVIEW_STATUSES)[number]["value"];
+
+export type ReviewSection = {
+  section: ReviewSectionKey;
+  prompt: string | null;
+  pinnedCommentId: string | null;
+  commentCount: number;
+};
+
+export type ReviewConfig = {
+  enabled: boolean;
+  intro: string | null;
+  sections: ReviewSection[];
+};
+
+export type ReviewComment = {
+  _id: string;
+  _createdAt: string;
+  section: ReviewSectionKey;
+  filePath: string;
+  line: number;
+  commitSha: string;
+  lineText: string;
+  context: string | null;
+  author: { name: string; url: string | null };
+  body: string;
+  parentId: string | null;
+  isOwner: boolean;
+  status: ReviewStatus | null;
+  fixedInCommit: string | null;
+  statusNote: string | null;
+};

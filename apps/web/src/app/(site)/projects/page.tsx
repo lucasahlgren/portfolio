@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { EmptyState } from "@/components/empty-state";
 import { ProjectGrid } from "@/components/project-grid";
+import { ReviewableSection } from "@/components/review/reviewable-section";
 import { PageHeader, SectionHeading } from "@/components/section-heading";
 import { getProjects } from "@/lib/sanity/queries";
 
@@ -18,7 +19,7 @@ export default async function ProjectsPage() {
   const personal = projects.filter((p) => p.kind === "personal");
 
   return (
-    <>
+    <ReviewableSection section="projects-page">
       <PageHeader
         eyebrow={`Projects · ${String(projects.length).padStart(2, "0")}`}
         title={
@@ -66,6 +67,6 @@ export default async function ProjectsPage() {
           <ProjectGrid projects={personal} />
         </section>
       )}
-    </>
+    </ReviewableSection>
   );
 }

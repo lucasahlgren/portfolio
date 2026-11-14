@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Fragment, Suspense, type CSSProperties } from "react";
 
 import { PortableText } from "@/components/portable-text";
+import { ReviewableSection } from "@/components/review/reviewable-section";
 import { SanityImage } from "@/components/sanity-image";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -54,9 +55,11 @@ export async function generateMetadata({
 
 export default function ProjectPage({ params }: PageProps<"/projects/[slug]">) {
   return (
-    <Suspense fallback={<ProjectSkeleton />}>
-      <Project params={params} />
-    </Suspense>
+    <ReviewableSection section="project-detail">
+      <Suspense fallback={<ProjectSkeleton />}>
+        <Project params={params} />
+      </Suspense>
+    </ReviewableSection>
   );
 }
 

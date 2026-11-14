@@ -2,6 +2,7 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import type { Metadata } from "next";
 
 import { PortableText } from "@/components/portable-text";
+import { ReviewableSection } from "@/components/review/reviewable-section";
 import { SanityImage } from "@/components/sanity-image";
 import { PageHeader } from "@/components/section-heading";
 import { SocialIcon, socialLabels } from "@/components/social-icon";
@@ -20,7 +21,7 @@ export default async function AboutPage() {
   const settings = await getSettings();
 
   return (
-    <>
+    <ReviewableSection section="about">
       <PageHeader
         eyebrow="About"
         title={
@@ -92,7 +93,7 @@ export default async function AboutPage() {
           )}
         </div>
       </section>
-    </>
+    </ReviewableSection>
   );
 }
 

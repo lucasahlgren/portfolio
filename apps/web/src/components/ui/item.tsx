@@ -148,16 +148,6 @@ function ItemActions({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-function ItemHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="item-header"
-      className={cn("flex basis-full items-center justify-between gap-2", className)}
-      {...props}
-    />
-  );
-}
-
 function ItemFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -177,6 +167,5 @@ export {
   ItemSeparator,
   ItemTitle,
   ItemDescription,
-  ItemHeader,
   ItemFooter,
 };
